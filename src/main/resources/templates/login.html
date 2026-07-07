@@ -1,0 +1,15 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Unsafe Web-App</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <form action="/login" method="post">
+        <input type="text" id="uname" name="username" placeholder="Username"><br><br>
+        <input type="password" id="passwd" name="password" placeholder="Password"><br><br>
+        <p th:if="${error}" th:text="${error}" style="color: red;"></p> <!--displays error messages if there are any-->
+        <button type="submit">Login</button>
+    </form>
+</body>
+</html>
