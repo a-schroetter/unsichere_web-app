@@ -23,4 +23,25 @@ public class UserRepository {
             }
         });
     }
+
+    public User findById(int id) {
+        String query = "SELECT * FROM users WHERE id = " + id;
+        return jdbcTemplate.query(query, resultSet -> {
+            if (resultSet.next()) {
+                return new User(resultSet.getInt("id"), resultSet.getString("username"), resultSet.getString("password"));
+            } else {
+                return null;
+            }
+        });
+    }
+
+    public User findByUsername(String sessionUsername) {
+        String query = "SELECT * FROM users WHERE username = '" + sessionUsername + "'";
+        return jdbcTemplate.query(query, resultSet -> {
+        if (resultSet.next()) {
+            return new User(resultSet.getInt("id"), resultSet.getString("username"), resultSet.getString("password"));
+        }
+        return null;
+    });
+    }
 }
