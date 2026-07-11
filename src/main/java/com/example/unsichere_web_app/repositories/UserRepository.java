@@ -6,7 +6,7 @@ import com.example.unsichere_web_app.models.User;
 
 @Repository
 public class UserRepository {
-    
+
     private final JdbcTemplate jdbcTemplate;
 
     public UserRepository(JdbcTemplate jdbcTemplate) {
@@ -14,34 +14,37 @@ public class UserRepository {
     }
 
     public User findByUsernameAndPassword(String username, String password) {
-        String query = "SELECT * FROM users WHERE username = '" + username + "' AND password = '" + password + "'";
+        String query = "SELECT * FROM users WHERE username = ? AND password = ?";
         return jdbcTemplate.query(query, resultSet -> {
             if (resultSet.next()) {
                 return new User(resultSet.getInt("id"), resultSet.getString("username"), resultSet.getString("password"));
             } else {
                 return null;
             }
-        });
+
+        }, username, password);
     }
 
     public User findById(int id) {
-        String query = "SELECT * FROM users WHERE id = " + id;
+        String query = "SELECT * FROM users WHERE id = ?";
         return jdbcTemplate.query(query, resultSet -> {
             if (resultSet.next()) {
-                return new User(resultSet.getInt("id"), resultSet.getString("username"), resultSet.getString("password"));
+                return new User(resultSet.getInt("id"), resultSet.getString("username"),
+                        resultSet.getString("password"));
             } else {
                 return null;
             }
-        });
+        }, id);
     }
 
     public User findByUsername(String sessionUsername) {
-        String query = "SELECT * FROM users WHERE username = '" + sessionUsername + "'";
+        String query = "SELECT * FROM users WHERE username = ?";
         return jdbcTemplate.query(query, resultSet -> {
-        if (resultSet.next()) {
-            return new User(resultSet.getInt("id"), resultSet.getString("username"), resultSet.getString("password"));
-        }
-        return null;
-    });
+            if (resultSet.next()) {
+                return new User(resultSet.getInt("id"), resultSet.getString("username"),
+                        resultSet.getString("password"));
+            }
+            return null;
+        }, sessionUsername);
     }
 }

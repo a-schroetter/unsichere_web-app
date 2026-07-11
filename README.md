@@ -14,7 +14,12 @@ This project was built with security issues to learn and understand the fundamen
 - No brute-force protection on login
 
 ## Fixing Vulnerabilities (in progress)
-- [ ] SQL-Injection
+- [x] SQL-Injection
+    - before fix:   -> login possible without valid password
+                    -> username `' OR '1'='1' --` logged you in with any password
+    - after fix:    -> same input returns "Invalid username or password" error message
+    - how to fix:   -> use prepared statements instead of String concatenation to treat input as text instead of SQL-statements
+    
 - [ ] password encryption
 - [ ] invalidate sessions
 - [ ] IDOR
