@@ -15,8 +15,7 @@ This project was built with security issues to learn and understand the fundamen
 
 ## Fixing Vulnerabilities (in progress)
 - [x] SQL-Injection
-    - before fix:   -> login possible without valid password
-                    -> username `' OR '1'='1' --` logged you in with any password
+    - before fix:   -> login possible without valid password - username `' OR '1'='1' --` logged you in with any password
     - after fix:    -> same input returns "Invalid username or password" error message
     - how to fix:   -> use prepared statements instead of String concatenation to treat input as text instead of SQL-statements
     
@@ -24,7 +23,11 @@ This project was built with security issues to learn and understand the fundamen
     - before fix:   -> passwords stored as text - visible to anyone with DB access
     - after fix:    -> passwords stored as BCrypt hashes
     - how to fix:   -> store hash of the password in database and check with BCryptPasswordEncoder
-    
-- [ ] invalidate sessions
+
+- [x] invalidate sessions
+    - before fix:   -> when logout was clicked the session remained active, user could access /profile after logout
+    - after fix:    -> when clicked on logout, session is invalidated - user cant access /profile without entering password again
+    - how to fix:   -> redirect user to /logout and invalidate session there
+
 - [ ] IDOR
 - [ ] brute-force protection

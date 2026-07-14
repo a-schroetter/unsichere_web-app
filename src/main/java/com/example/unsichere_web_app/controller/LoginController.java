@@ -25,6 +25,12 @@ public class LoginController {
         return "login";
     }
 
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/login";
+    }
+
     @PostMapping("/login") 
     public String processLogin(
         @RequestParam String username, 
