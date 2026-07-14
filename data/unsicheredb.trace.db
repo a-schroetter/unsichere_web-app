@@ -1,4 +1,0 @@
-2026-07-09 11:27:38.552898+02:00 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabelle "USERS" nicht gefunden (diese Datenbank ist leer)
-Table "USERS" not found (this database is empty); SQL statement:
-SELECT * FROM users WHERE username = 'fae' AND password = 'fa3r' [42104-240]

@@ -20,7 +20,11 @@ This project was built with security issues to learn and understand the fundamen
     - after fix:    -> same input returns "Invalid username or password" error message
     - how to fix:   -> use prepared statements instead of String concatenation to treat input as text instead of SQL-statements
     
-- [ ] password encryption
+- [x] password encryption
+    - before fix:   -> passwords stored as text - visible to anyone with DB access
+    - after fix:    -> passwords stored as BCrypt hashes
+    - how to fix:   -> store hash of the password in database and check with BCryptPasswordEncoder
+    
 - [ ] invalidate sessions
 - [ ] IDOR
 - [ ] brute-force protection

@@ -5,9 +5,9 @@ CREATE TABLE IF NOT EXISTS users (
 );
 
 INSERT INTO users (username, password) 
-SELECT 'admin', 'admin123' 
+SELECT 'admin', '$2a$10$NmDh4CDTo9wV7HWy6v3OBeruVlSYpb0M0RA4HdmtNyt.CIdMNFCWy' 
 WHERE NOT EXISTS (SELECT 1 FROM users WHERE username = 'admin');
 
 INSERT INTO users (username, password) 
-SELECT 'anton', 'passwort1' 
+SELECT 'anton', '$2a$10$7UVcNbtizm40gr/KIgOfgOpiI4tAJRKNQi0ElVQOJ8O.wVO/IMaVK' 
 WHERE NOT EXISTS (SELECT 1 FROM users WHERE username = 'anton');
