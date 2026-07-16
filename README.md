@@ -34,4 +34,7 @@ This project was built with security issues to learn and understand the fundamen
     - after fix:    -> user is getting redirectet to personal repository when they try to access unauthorized ID
     - how to fix:   -> compare username of current session to username of the accessed id on every GET-request of the repository
     
-- [ ] brute-force protection
+- [x] brute-force protection
+    - before fix:   -> no limitations on how often you can try to login
+    - after fix:    -> after 5 login attempts account gets blocked
+    - how to fix:   -> add counter for failed login attempts and check before every login
