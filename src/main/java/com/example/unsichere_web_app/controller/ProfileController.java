@@ -21,19 +21,22 @@ public class ProfileController {
 
     @GetMapping("/profile")
     public String showProfilePage(@RequestParam(required = false) Integer id,
-        HttpSession session,
-        Model model)
-    {
-    String sessionUsername = (String) session.getAttribute("sessionUser");
-    if (sessionUsername == null) return "redirect:/login";
-    User user;
-    if (id == null) {
-        user = userRepository.findByUsername(sessionUsername);
-    } else {
-        user = userRepository.findById(id);
-    }
+            HttpSession session,
+            Model model) {
+        String sessionUsername = (String) session.getAttribute("sessionUser");
+        if (sessionUsername == null)
+            return "redirect:/login";
 
-    model.addAttribute("user", user);
-    return "profile";
+        User user;
+        if (id == null) {
+            user = userRepository.findByUsername(sessionUsername);
+        } else {
+            user = userRepository.findById(id);
+            if (user == null || !sessionUsername.equals(user.getUsername())) {
+                return "redirect:/profile";
+            }
+        }
+        model.addAttribute("user", user);
+        return "profile";
     }
 }

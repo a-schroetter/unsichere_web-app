@@ -29,5 +29,9 @@ This project was built with security issues to learn and understand the fundamen
     - after fix:    -> when clicked on logout, session is invalidated - user cant access /profile without entering password again
     - how to fix:   -> redirect user to /logout and invalidate session there
 
-- [ ] IDOR
+- [x] IDOR
+    - before fix:   -> when logged in user could access any UserRepository via /profile?id=2
+    - after fix:    -> user is getting redirectet to personal repository when they try to access unauthorized ID
+    - how to fix:   -> compare username of current session to username of the accessed id on every GET-request of the repository
+    
 - [ ] brute-force protection
