@@ -6,14 +6,14 @@ This project was built with security issues to learn and understand the fundamen
 - login with database access
 - profiles with session management
 
-## Vulnerabilities
+## App Vulnerabilities
 - SQL-Injection (String concatenation in queries)
 - passwords stored in plaintext
 - no session invalidation on logout
 - IDOR on profile page
 - No brute-force protection on login
 
-## Fixing Vulnerabilities (in progress)
+## Fixing App Vulnerabilities
 - [x] SQL-Injection
     - before fix:   -> login possible without valid password - username `' OR '1'='1' --` logged you in with any password
     - after fix:    -> same input returns "Invalid username or password" error message
@@ -38,3 +38,17 @@ This project was built with security issues to learn and understand the fundamen
     - before fix:   -> no limitations on how often you can try to login
     - after fix:    -> after 5 login attempts account gets blocked
     - how to fix:   -> add counter for failed login attempts and check before every login
+
+## Server Vulnarabilities
+- no fail2ban -> brute-force attack possible
+- root-login possible
+- no firewall
+- app runs as root-user
+- no https
+
+## Fixing Server Vulnerabilities
+- [] Fail2Ban
+- [] disable root-login
+- [] firewall
+- [] seperate user for app
+- [] configure https
