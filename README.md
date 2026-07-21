@@ -13,7 +13,7 @@ This project was built with security issues to learn and understand the fundamen
 - IDOR on profile page
 - No brute-force protection on login
 
-## Fixing App Vulnerabilities
+### Fixing App Vulnerabilities
 - [x] SQL-Injection
     - before fix:   -> login possible without valid password - username `' OR '1'='1' --` logged you in with any password
     - after fix:    -> same input returns "Invalid username or password" error message
@@ -40,15 +40,21 @@ This project was built with security issues to learn and understand the fundamen
     - how to fix:   -> add counter for failed login attempts and check before every login
 
 ## Server Vulnarabilities
-- no fail2ban -> brute-force attack possible
+- brute-force attack possible
 - root-login possible
 - no firewall
 - app runs as root-user
 - no https
 
-## Fixing Server Vulnerabilities
-- [] Fail2Ban
-- [] disable root-login
-- [] firewall
-- [] seperate user for app
-- [] configure https
+### Fixing Server Vulnerabilities
+- [x] brute-force protection
+    - before fix:    -> no limitation on how often you can try to login
+    - after fix:     -> after 5 login attempts you get blocked for 10 minutes
+          <img width="744" height="269" alt="image" src="https://github.com/user-attachments/assets/2395cbae-bec6-4a9d-80f9-77453274467a" />
+          
+    - how to fix:    -> install fail2ban, works and runs out of the box
+          
+- [ ] disable root-login
+- [ ] firewall
+- [ ] seperate user for app
+- [ ] configure https
