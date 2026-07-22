@@ -54,7 +54,13 @@ This project was built with security issues to learn and understand the fundamen
     - proof:
     <img width="744" height="269" alt="image" src="https://github.com/user-attachments/assets/2395cbae-bec6-4a9d-80f9-77453274467a" />
           
-- [ ] disable root-login
+- [x] disable root-login via SSH
+    - before fix:    -> root-login via SSH possible
+    - after fix:     -> root-login only possible on the server console
+    - how to fix:    -> in /etc/ssh/sshd_config change `PermitRootLogin yes` to `PermitRootLogin no`
+    - proof:
+    <img width="388" height="55" alt="image" src="https://github.com/user-attachments/assets/fdec72dc-d0ed-4cbe-aafe-ae42c54ac353" />
+    
 - [ ] firewall
 - [ ] seperate user for app
 - [ ] configure https
