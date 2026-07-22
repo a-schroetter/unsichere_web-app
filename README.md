@@ -47,12 +47,12 @@ This project was built with security issues to learn and understand the fundamen
 - no https
 
 ### Fixing Server Vulnerabilities
-- [x] brute-force protection
+- [x] brute-force protection for SSH-login
     - before fix:    -> no limitation on how often you can try to login
-    - after fix:     -> after 5 login attempts you get blocked for 10 minutes
-          <img width="744" height="269" alt="image" src="https://github.com/user-attachments/assets/2395cbae-bec6-4a9d-80f9-77453274467a" />
-          
-    - how to fix:    -> install fail2ban, works and runs out of the box
+    - after fix:     -> after 5 login attempts your IP gets blocked for 10 minutes
+    - how to fix:    -> install fail2ban, works and runs out of the box (maxretry=5, bantime=10m, findtime=10m)
+    - proof:
+    <img width="744" height="269" alt="image" src="https://github.com/user-attachments/assets/2395cbae-bec6-4a9d-80f9-77453274467a" />
           
 - [ ] disable root-login
 - [ ] firewall
