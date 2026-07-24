@@ -62,5 +62,15 @@ This project was built with security issues to learn and understand the fundamen
     <img width="388" height="55" alt="image" src="https://github.com/user-attachments/assets/fdec72dc-d0ed-4cbe-aafe-ae42c54ac353" />
     
 - [ ] firewall
-- [ ] seperate user for app
+- [x] seperate user for app
+    - before fix:    -> webapp runs as root - attacker may has unlimited access to system
+    - after fix:     -> seperate system user executes webapp
+    - how to fix:
+        - create new system user `sudo useradd -r -s /bin/false webappUser`
+        - change owner of JAR file to new user `sudo chown webappUser:webappUser /home/user1/unsichere_web-app-0.0.1-SNAPSHOT.jar`
+        - in webapp.service add `User=webappUser`
+        - give webappUser right to access the directory containing the JAR file
+    - proof:
+    <img width="834" height="29" alt="image" src="https://github.com/user-attachments/assets/684fcd00-aff0-4ed4-a1ba-a954a91aa720" />
+
 - [ ] configure https
