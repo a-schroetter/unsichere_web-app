@@ -61,7 +61,16 @@ This project was built with security issues to learn and understand the fundamen
     - proof:
     <img width="388" height="55" alt="image" src="https://github.com/user-attachments/assets/fdec72dc-d0ed-4cbe-aafe-ae42c54ac353" />
     
-- [ ] firewall
+- [x] firewall
+    - before fix:    -> all ports open which means more attack surface
+    - after fix      -> only the ports 22 (SSH) and 8080 (Web-App) are open
+    - how to fix:
+        - `sudo ufw default deny incoming` - all ports are closed for incoming requests
+        - `sudo ufw default allow outgoing` - all ports are open for outgoing requests
+        - `sudo ufw allow 22` - open port 22 for SSH
+        - `sudo ufw allow 8080` - open port 8080 for Web-App
+        - `sudo ufw enable` - activates the firewall
+
 - [x] seperate user for app
     - before fix:    -> webapp runs as root - attacker may has unlimited access to system
     - after fix:     -> seperate system user executes webapp
