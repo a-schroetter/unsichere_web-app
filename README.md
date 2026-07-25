@@ -82,4 +82,10 @@ This project was built with security issues to learn and understand the fundamen
     - proof:
     <img width="834" height="29" alt="image" src="https://github.com/user-attachments/assets/684fcd00-aff0-4ed4-a1ba-a954a91aa720" />
 
-- [ ] configure https
+- [x] configure https
+    - before fix:    -> traffic transmitted in plain text - attacker can read everything if he is in the same network (man-in-the-middle)
+    - after fix:     -> traffic is encrypted and can't be read - http is redirected to https
+    - how to fix:
+        - install nginx
+        - open port 443 (for nginx)
+        - create certificate `sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/webapp.key -out /etc/ssl/certs/webapp.crt`
