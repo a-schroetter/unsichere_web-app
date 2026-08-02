@@ -47,4 +47,9 @@ public class UserRepository {
             return null;
         }, sessionUsername);
     }
+
+    public void saveUser(User user) {
+        String query = "INSERT INTO users (username, password) VALUES (?, ?)";
+        jdbcTemplate.update(query, user.getUsername(), user.getPassword());
+    }
 }

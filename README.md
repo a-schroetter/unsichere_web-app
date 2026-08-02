@@ -3,8 +3,9 @@
 This project was built with security issues to learn and understand the fundamentals of web security and fix them step by step.
 
 ## Build the web-app
-- login with database access
-- profiles with session management
+- web-app built with Spring-Boot
+- simple login and register functionality with database access
+- private profiles for every user
 
 ## Vulnerabilities
 - SQL-Injection (String concatenation in queries)
