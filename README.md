@@ -7,14 +7,14 @@ This project was built with security issues to learn and understand the fundamen
 - simple login and register functionality with database access
 - private profiles for every user
 
-## Vulnerabilities
+## App Vulnerabilities
 - SQL-Injection (String concatenation in queries)
 - passwords stored in plaintext
 - no session invalidation on logout
 - IDOR on profile page
 - No brute-force protection on login
 
-## Fixing Vulnerabilities (in progress)
+### Fixing App Vulnerabilities
 - [x] SQL-Injection
     - before fix:   -> login possible without valid password - username `' OR '1'='1' --` logged you in with any password
     - after fix:    -> same input returns "Invalid username or password" error message
@@ -39,3 +39,54 @@ This project was built with security issues to learn and understand the fundamen
     - before fix:   -> no limitations on how often you can try to login
     - after fix:    -> after 5 login attempts account gets blocked
     - how to fix:   -> add counter for failed login attempts and check before every login
+
+## Server Vulnarabilities
+- brute-force attack possible
+- root-login possible
+- no firewall
+- app runs as root-user
+- no https
+
+### Fixing Server Vulnerabilities
+- [x] brute-force protection for SSH-login
+    - before fix:    -> no limitation on how often you can try to login
+    - after fix:     -> after 5 login attempts your IP gets blocked for 10 minutes
+    - how to fix:    -> install fail2ban, works and runs out of the box (maxretry=5, bantime=10m, findtime=10m)
+    - proof:
+    <img width="744" height="269" alt="image" src="https://github.com/user-attachments/assets/2395cbae-bec6-4a9d-80f9-77453274467a" />
+          
+- [x] disable root-login via SSH
+    - before fix:    -> root-login via SSH possible
+    - after fix:     -> root-login only possible on the server console
+    - how to fix:    -> in /etc/ssh/sshd_config change `PermitRootLogin yes` to `PermitRootLogin no`
+    - proof:
+    <img width="388" height="55" alt="image" src="https://github.com/user-attachments/assets/fdec72dc-d0ed-4cbe-aafe-ae42c54ac353" />
+    
+- [x] firewall
+    - before fix:    -> all ports open which means more attack surface
+    - after fix      -> only the ports 22 (SSH) and 8080 (Web-App) are open
+    - how to fix:
+        - `sudo ufw default deny incoming` - all ports are closed for incoming requests
+        - `sudo ufw default allow outgoing` - all ports are open for outgoing requests
+        - `sudo ufw allow 22` - open port 22 for SSH
+        - `sudo ufw allow 8080` - open port 8080 for Web-App
+        - `sudo ufw enable` - activates the firewall
+
+- [x] seperate user for app
+    - before fix:    -> webapp runs as root - attacker may has unlimited access to system
+    - after fix:     -> seperate system user executes webapp
+    - how to fix:
+        - create new system user `sudo useradd -r -s /bin/false webappUser`
+        - change owner of JAR file to new user `sudo chown webappUser:webappUser /home/user1/unsichere_web-app-0.0.1-SNAPSHOT.jar`
+        - in webapp.service add `User=webappUser`
+        - give webappUser right to access the directory containing the JAR file
+    - proof:
+    <img width="834" height="29" alt="image" src="https://github.com/user-attachments/assets/684fcd00-aff0-4ed4-a1ba-a954a91aa720" />
+
+- [x] configure https
+    - before fix:    -> traffic transmitted in plain text - attacker can read everything if he is in the same network (man-in-the-middle)
+    - after fix:     -> traffic is encrypted and can't be read - http is redirected to https
+    - how to fix:
+        - install nginx
+        - open port 443 (for nginx)
+        - create certificate `sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/webapp.key -out /etc/ssl/certs/webapp.crt`
